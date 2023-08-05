@@ -14,12 +14,26 @@ from typing import List
 import math
 
 def minEatingSpeed(piles: List[int], h: int) -> int:
-    t = 0
-    for i in piles:
-        t += i
+    l, r = 1, max(piles)
+    
+    pointer = r
 
-        
-    return math.ceil(t / h)
+    while l <= r:
+        hours = 0
+        k = (l + r) // 2
+        for i in piles:
+            hours += math.ceil(i / k)
+
+        if hours <= h:
+            pointer = min(pointer, k)
+            r = k - 1
+        else:
+            l = k+ 1
+
+
+    return pointer
+
+
 
 
 
@@ -27,4 +41,5 @@ def minEatingSpeed(piles: List[int], h: int) -> int:
 
 print(minEatingSpeed([3,6,7,11], 8))
 print(minEatingSpeed([30,11,23,4,20], 5))
-print(minEatingSpeed([30,11,23,4,20], 8))
+print(minEatingSpeed([30,11,23,4,20], 6))
+print(minEatingSpeed([312884470], 312884469))
